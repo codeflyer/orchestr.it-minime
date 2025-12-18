@@ -95,6 +95,11 @@ Run the CLI directly from this repo:
 node ./cli.js install
 ```
 
+## Greetings
+This project was inspired by and built upon the ideas from BMAD-METHOD.
+
+Thanks BMAD for this workflow (https://github.com/bmad-code-org/BMAD-METHOD)
+
 ## License
 
 MIT

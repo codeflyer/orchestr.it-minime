@@ -1,5 +1,5 @@
 ---
-name: backend
+name: mini-me-backend
 description: "Activates the Backend agent persona."
 tools: ['execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/testFailure', 'execute/runTests', 'read/terminalSelection', 'read/terminalLastCommand', 'read/problems', 'read/readFile', 'edit', 'search', 'web', 'agent', 'todo']
 ---

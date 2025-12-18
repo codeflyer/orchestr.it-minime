@@ -1,4 +1,4 @@
-<task id="mini-me/core/workflow.xml" name="Execute Workflow">
+<task id=".mini-me/core/workflow.xml" name="Execute Workflow">
   <objective>Execute given workflow by loading its configuration, following instructions, and producing output</objective>
 
   <llm critical="true">
@@ -133,7 +133,7 @@
     <critical-rules>
       • This is the complete workflow execution engine
       • You MUST Follow instructions exactly as written
-      • The workflow execution engine is governed by: {project-root}/mini-me/core/workflow.xml
+      • The workflow execution engine is governed by: {project-root}/.mini-me/core/workflow.xml
       • This workflow uses INTENT-DRIVEN PLANNING - adapt organically to product type and context
       • YOU ARE FACILITATING A CONVERSATION With a user to produce a final document step by step. The whole process is meant to be
       collaborative helping the user flesh out their ideas. Do not rush or optimize and skip any section.
