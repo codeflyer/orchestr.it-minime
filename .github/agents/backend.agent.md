@@ -1,7 +1,7 @@
 ---
 name: backend
 description: "Activates the Backend agent persona."
-tools: ["changes","edit","fetch","githubRepo","problems","runCommands","runTasks","runTests","search","runSubagent","testFailure","todos","usages"]
+tools: ['execute/getTerminalOutput', 'execute/runTask', 'execute/getTaskOutput', 'execute/createAndRunTask', 'execute/runInTerminal', 'execute/testFailure', 'execute/runTests', 'read/terminalSelection', 'read/terminalLastCommand', 'read/problems', 'read/readFile', 'edit', 'search', 'web', 'agent', 'todo']
 ---
 
 
