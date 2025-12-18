@@ -1,0 +1,84 @@
+<workflow>
+  <step n="1" goal="Verify the current status of the implementations">
+    <action>Welcome {user_name} to the Fastify backend endpoint creation.</action>
+    <action>Check if the file docs/api-status.json exists</action>
+    <check if="!exists">
+      <output>The file docs/api-status.json does not exist. Create the file with the following content</output>
+      <action>
+        load the list of files from the docs/api folder and create a file docs/api-status.json with the
+        following content:
+
+        ```
+        {"endpoints": [{"file": "DELETE-acceptance-criteria-id","status": "not-implemented"}]}
+        ```
+      </action>
+    </check>
+  </step>
+
+  <step n="2" goal="Determine with endpoint should be created the documentation" next="step-03-update-status-file">
+    <output>The file docs/api-status.json exists. Load the content to check the status of the endpoints</output>
+    <action>Load the content of docs/api-status.json to check the status of the endpoints and
+      assign to the variable file_to_process the first element that's in state 'not-implemented'
+    </action>
+
+    <output>Processing the file {file_to_process.file}</output>
+
+    <action>Ask confirm to process the file {file_to_process.file}</action>
+    <check if="confirmed">
+      <action>go to step 3</action>
+    </check>
+    <if not="confirmed">
+      <action>End the workflow</action>
+    </if>
+  </step>
+
+  <step n="3" goal="Create the endpoint based on the documentation" next="step-04-update-status-file">
+    <action>Read the documentation file from docs/api/{file_to_process.file}.md to understand the endpoint
+      requirements
+    </action>
+
+    <action>Given the url in this format:
+      `/api/v1/acceptance-criteria/:id`
+
+      Skip the `/api/v1` prefix and create the endpoint in Fastify with the following characteristics:
+
+      - Method: Check the method in the documentation
+      - URL: check the url in the documentation and remove the `/api/v1` prefix
+      - Params: check the params in the documentation and add them to the endpoint
+      - Query params: check the query params in the documentation and add them to the endpoint
+      - Use Typescript
+      - Create a folder within src/routes named after the first segment of the url (in this case
+      acceptance-criteria)
+      in case it has many segments use subfolders to separate them (e.g. `/api/v1/acceptance-criteria/:id/steps`
+      acceptance-criteria/steps)
+      - inside the folder create a file named after the method and the rest of the url replacing `/` with `-` and
+      `:` with empty
+      (in this case delete-acceptance-criteria-id.ts)
+      - Create in the folder a schemas.ts file that contains the input and output validation schemas in Zod as per
+      documentation,
+      use a unique name in the schema, e.g. DeleteAcceptanceCriteriaIdInputSchema and
+      DeleteAcceptanceCriteriaIdResponseSchema
+      - in the endpoint file import the schemas from the schemas.ts file and use them to validate the input and
+      output,
+      fastify provides a schema validation, USE IT. Do not add any extra validation outside the schemas.
+      You don't need to install anything for the validation. Fastify has built-in support for schema validation
+      and allows to use directly the Zod schemas.
+      E.g. {
+        params: GetDocumentsDocumentIdSectionsParamsSchema,
+        querystring: GetDocumentsDocumentIdSectionsQuerySchema,
+        response: {
+          200: GetDocumentsDocumentIdSectionsSuccessResponseSchema
+        }
+      }
+      - Do not implement authentication logic, just add a comment in the endpoint file that indicates the authentication restrictions as per documentation
+      - add, if not exists, an index.ts that registers the endpoints in Fastify. Otherwise just add the new  endpoint to the existing index.ts
+      - return in the endpoint the expected output as per documentation with mocked values
+      - add a test file named as the endpoint file but with .test.ts that tests the endpoint using Fastify's inject method
+      - do not export and add types in the schemas.ts file that are not used in the endpoint file
+    </action>
+    <action>Update the status file to "implemented"</action>
+    <action>End the workflow</action>
+  </step>
+
+  <action>End the workflow</action>
+</workflow>
