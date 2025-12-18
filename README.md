@@ -69,10 +69,22 @@ The command menu is defined by the backend persona in `.mini-me/agents/backend.m
 
 ### Commands
 
-- `*create-fastify`
-  - Runs the “Create a fastify backend service” workflow from `.mini-me/workflows/create-fastify/workflow.md`.
-- `*add-endpoint-from-docs`
-  - Runs the “Add endpoint from docs” workflow from `.mini-me/workflows/add-endpoint-from-docs/workflow.md`.
+#### `*create-fastify`
+
+Runs the “Create a fastify backend service” workflow from `.mini-me/workflows/create-fastify/workflow.md`.
+
+Creates a Fastify backend service scaffold based on the provided configuration.
+
+
+#### `*add-endpoint-from-docs`
+
+Runs the “Add endpoint from docs” workflow from `.mini-me/workflows/add-endpoint-from-docs/workflow.md`.
+
+Creates a Fastify backend endpoint based on API documentation files located in the `docs/api/` folder.
+
+You can find an example of the api docs to use in `samples/docs/api/`.
+
+
 
 Re-run install (idempotent):
 
