@@ -1,6 +1,6 @@
 # @orchestrit/mini-me
 
-Orchestr.it **Mini-me** is a small bootstrap CLI that installs a **workflow-driven Copilot agent** (and its workflow module) into an existing repository.
+Orchestr.it **Mini-me** is a small bootstrap CLI that installs a **workflow-driven backend agent** (and its workflow module) into an existing repository.
 
 Instead of relying on free-form prompting, Mini-me encodes repeatable backend engineering outcomes as explicit **workflows** (a step-by-step playbook) executed under a strict runner contract.
 
@@ -12,13 +12,20 @@ From the root of the project you want to install into:
 npx @orchestrit/mini-me install
 ```
 
-That’s it. You should now have `.github/agents/mini-me-*.agent.md` and `.mini-me/` in your repo.
+The installer shows a checklist so you can choose one or multiple targets:
+
+- Copilot
+- Cursor
+
+That’s it. You should now have target-specific files plus `.mini-me/` in your repo.
 
 ## Architecture (high level)
 
 Mini-me is split into three layers:
 
-- **Agent wrapper (tooling integration)**: Copilot agent entrypoints under `.github/agents/` (this package ships `.github/agents/mini-me-backend.agent.md`).
+- **Agent wrapper (tooling integration)**:
+  - Copilot entrypoints under `.github/agents/` (this package ships `.github/agents/mini-me-backend.agent.md`).
+  - Cursor rule wrapper under `.cursor/rules/` (this package ships `.cursor/rules/mini-me-backend.mdc`).
 - **Persona + menu (what the agent is allowed to do)**: persona lives in `.mini-me/agents/` (backend persona: `.mini-me/agents/backend.md`).
 - **Workflow system (how tasks are executed)**: runner contract in `.mini-me/core/`, workflows in `.mini-me/workflows/`, shared variables in `.mini-me/config.yaml`.
 
@@ -30,6 +37,8 @@ Running the installer will create/update these paths in your target project:
 
 - `.github/agents/mini-me-*.agent.md`
   - GitHub Copilot “agent” entrypoints (Markdown-based) that activate the Mini-me personas.
+- `.cursor/rules/mini-me-*.mdc`
+  - Cursor rule wrappers that activate the same Mini-me backend persona/menu workflow.
 - `.mini-me/`
   - The Mini-me module folder (agents, core, workflows, config).
 
@@ -67,6 +76,16 @@ Once installed into your target repo, you can drive Mini-me from GitHub Copilot 
 
 The command menu is defined by the backend persona in `.mini-me/agents/backend.md`.
 
+## After install (Cursor usage)
+
+Once installed into your target repo with Cursor selected:
+
+1. Open Cursor chat in your project.
+2. Activate the `mini-me-backend` rule/profile from `.cursor/rules/mini-me-backend.mdc`.
+3. Run `*menu` to verify the agent is active and to display available commands.
+
+The command menu remains defined by `.mini-me/agents/backend.md`.
+
 ### Commands
 
 #### `*create-fastify`
@@ -90,6 +109,14 @@ Re-run install (idempotent):
 
 ```bash
 npx @orchestrit/mini-me install
+```
+
+Install specific target(s) non-interactively:
+
+```bash
+npx @orchestrit/mini-me install --target copilot
+npx @orchestrit/mini-me install --target cursor
+npx @orchestrit/mini-me install --target copilot,cursor
 ```
 
 ## Uninstall
