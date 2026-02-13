@@ -9,6 +9,7 @@
     "cli.js",
     "README.md",
     ".github/agents/mini-me*.agent.md",
+    ".cursor/rules/mini-me*.mdc",
     ".mini-me/"
   ],
   "publishConfig": {
