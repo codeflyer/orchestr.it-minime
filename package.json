@@ -1,6 +1,6 @@
 {
   "name": "@orchestrit/mini-me",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Orchestr.it Mini-me agents CLI (installer bootstrap)",
   "license": "MIT",
   "type": "module",
